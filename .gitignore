@@ -1,0 +1,33 @@
+# Python/Django
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+.env
+*.log
+media/
+staticfiles/
+# VSCode
+.vscode/
+# Node/React
+node_modules/
+build/
+dist/
+.env.local
+.env.development
+.env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# OS
+.DS_Store
+Thumbs.db
+# Misc
+*.bak
+*.swp
+.idea/
+# Coverage
+coverage/
+htmlcov/
+# Django migrations
+*/migrations/
