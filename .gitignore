@@ -7,8 +7,17 @@ db.sqlite3
 *.log
 media/
 staticfiles/
+.env.*
+# Django migrations
+**/migrations/
 # VSCode
 .vscode/
+# PyCharm
+.idea/
+# Coverage
+coverage/
+htmlcov/
+
 # Node/React
 node_modules/
 build/
@@ -19,15 +28,16 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
 # OS
 .DS_Store
 Thumbs.db
+
 # Misc
 *.bak
 *.swp
-.idea/
-# Coverage
-coverage/
-htmlcov/
-# Django migrations
-*/migrations/
+
+# Docker
+.env.docker
+.envrc
+docker-compose.override.yml
