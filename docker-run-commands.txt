@@ -1,3 +1,4 @@
+without docker compose file run seperately
 postgres:
      docker run --name pg-container -p 5432:5432 --network react-django-network -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=react-django-crud -d postgres
 
@@ -6,3 +7,6 @@ backend:
 
 frontend:
      docker run --name react-django-frontend --network react-django-network -p 5173:5173 sha256:e976c1de4ee25421140ebf24d78b31d551708daa89a27f68e030ea5390945435
+
+With docker compose file 
+docker-compose -build up
