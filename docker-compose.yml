@@ -1,27 +1,54 @@
-version: '3.6'
+version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    container_name: pg-container
+    environment:
+      POSTGRES_DB: react-django-crud
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - react-django-network
 
-    backend:
-      build: backend
-      hostname: backend-host
-      ports: 
-        - "8000:8000"
-      networks:
-        - react-django-network
+  backend:
+    build:
+      context: ./backend
+    container_name: react-django-backend
+    command: ./start.sh
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DB_NAME: react-django-crud
+      DB_USER: postgres
+      DB_PASSWORD: mysecretpassword
+      DB_HOST: db
+      DB_PORT: 5432
+    depends_on:
+      - db
+    networks:
+      - react-django-network
 
-    frontend:
-      build: frontend
-      environment:
-        - BACKEND_URL=http://backend-host
-      ports:
-        - "5173:5173"
-      links:
-        - backend
-      depends_on:
-        - backend
-      networks:
-        - react-django-network
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react-django-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - backend
+    networks:
+      - react-django-network
+
+volumes:
+  postgres_data:
 
 networks:
-    react-django-network: {}
+  react-django-network:
