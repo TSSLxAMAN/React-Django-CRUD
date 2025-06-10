@@ -1,0 +1,8 @@
+postgres:
+     docker run --name pg-container -p 5432:5432 --network react-django-network -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=react-django-crud -d postgres
+
+backend: 
+     docker run -p 8000:8000 --network react-django-network -e DB_NAME=react-django-crud -e DB_USER=postgres -e DB_PORT=5432 -e DB_HOST=pg-container -e DB_PASSWORD=mysecretpassword --name react-django-backend sha256:3ad55735a3f53e1609bd2d733a21c6b0094f74022fbbef0108a75c01f63f9c6c
+
+frontend:
+     docker run --name react-django-frontend --network react-django-network -p 5173:5173 sha256:e976c1de4ee25421140ebf24d78b31d551708daa89a27f68e030ea5390945435

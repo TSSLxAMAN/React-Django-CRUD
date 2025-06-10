@@ -11,9 +11,10 @@ const Students = () => {
   const [DeleteModalId, setDeleteModalId] = useState()
   const [EditModalId, setEditModalId] = useState()
   const [loading, setLoading] = useState(false);
+  const url = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:8000/"
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/getStudent/')
+    axios.get(`${url}getStudent/`)
       .then(
         (res) => {
           console.log(res.data)
@@ -25,7 +26,7 @@ const Students = () => {
 
   const handleDelete = () => {
     setLoading(true)
-    axios.delete(`http://127.0.0.1:8000/deleteStudent/${DeleteModalId}/`).then((res) => { console.log(res) }).then((res) => {
+    axios.delete(`${url}deleteStudent/${DeleteModalId}/`).then((res) => { console.log(res) }).then((res) => {
       setLoading(false)
       toast.success("Student Deleted Successfully")
     }).catch((err) => {
@@ -36,7 +37,7 @@ const Students = () => {
 
   const handleEdit = () => {
     setLoading(true)
-    axios.put(`http://127.0.0.1:8000/editStudent/${EditModalId}/`, {
+    axios.put(`${url}editStudent/${EditModalId}/`, {
       first_name: EditFirstName.trim(),
       last_name: EditLastName.trim(),
       email: EditEmail.trim()

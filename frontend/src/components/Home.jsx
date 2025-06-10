@@ -8,7 +8,7 @@ const Home = () => {
   const [last_name, setLast_name] = useState('')
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false);
-
+  const url = import.meta.env.BACKEND_URL || "http://127.0.0.1:8000/"
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!first_name.trim()) {
@@ -24,7 +24,7 @@ const Home = () => {
       return
     }
     setLoading(true);
-    axios.post("http://127.0.0.1:8000/addStudent/", {
+    axios.post(`${url}addStudent/`, {
       first_name: first_name.trim(),
       last_name: last_name.trim(),
       email: email.trim()
@@ -38,8 +38,14 @@ const Home = () => {
       .catch(err => {
         if (err.response && err.response.data.email) {
           toast.error("Email already exists!");
+          setEmail('')
+          setLoading(false)
         } else {
           toast.error("Something went wrong.");
+          setEmail('')
+          setFirst_name('')
+          setLast_name('')
+          setLoading(false)
         }
       });
 

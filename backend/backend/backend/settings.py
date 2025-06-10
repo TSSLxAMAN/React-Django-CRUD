@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -63,15 +63,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import os
 
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'react-django-crud',
-       'USER': 'postgres',
-       'PASSWORD': 'mysecretpassword',
-       'HOST': 'pg-container',
-       'PORT': '5432',
+       'NAME': os.getenv('DB_NAME', 'react-django-crud'),
+       'USER': os.getenv('DB_USER', 'postgres'),
+       'PASSWORD': os.getenv('DB_PASSWORD', 'admin'),
+       'HOST': os.getenv('DB_HOST', 'localhost'),
+       'PORT': os.getenv('DB_PORT', '5432'),
    }
 }
 

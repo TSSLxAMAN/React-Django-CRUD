@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+
+    backend:
+      build: backend
+      hostname: backend-host
+      ports: 
+        - "8000:8000"
+      networks:
+        - react-django-network
+
+    frontend:
+      build: frontend
+      environment:
+        - BACKEND_URL=http://backend-host
+      ports:
+        - "5173:5173"
+      links:
+        - backend
+      depends_on:
+        - backend
+      networks:
+        - react-django-network
+
+networks:
+    react-django-network: {}
